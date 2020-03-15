@@ -13,7 +13,8 @@ void MQTT_connection_manager(){
     if(MQTT_connected != 0){
       // MQTT connection status changed to "disconnected"
       MQTT_connected = 0;
-      Serial.println(F("[MQTT] Disconnected"));
+      Serial.print(F("[MQTT] Disconnected: "));
+      Serial.println(MQTT_client.state());
     }
         
     if(millis() - last_MQTT_connection_attempt > 1000){

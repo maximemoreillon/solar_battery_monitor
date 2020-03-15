@@ -18,7 +18,7 @@
 #include <PubSubClient.h>
 
 // Parameters
-#define HOSTNAME "solar"
+#define HOSTNAME "solarMonitor"
 
 // Pin mapping
 #define ADC_PIN 35
@@ -45,6 +45,7 @@
 // Timing settings
 #define ADC_READ_PERIOD 100
 #define MQTT_PUBLISH_PERIOD 60000
+#define FILTER_CONSTANT 0.1
 
 class LowPassFilter {
   
@@ -64,7 +65,6 @@ class LowPassFilter {
     }
 };
 
-#define FILTER_CONSTANT 0.1
 LowPassFilter lpf(FILTER_CONSTANT);
 
 
@@ -94,6 +94,7 @@ void setup() {
 void loop() {
   wifi_connection_manager();
   MQTT_connection_manager();
+  MQTT_client.loop();
   ArduinoOTA.handle();
   web_server.handleClient();
   ws_server.loop();

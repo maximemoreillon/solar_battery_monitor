@@ -42,7 +42,7 @@ void adc_read(){
     serializeJson(outbound_JSON_message, JSONmessageBuffer, sizeof(JSONmessageBuffer));
 
     // Send the char array
-    Serial.println(F("[MQTT] publish of power measurement"));
+    Serial.println(F("[MQTT] publish of measurement"));
     MQTT_client.publish(MQTT_STATUS_TOPIC, JSONmessageBuffer, MQTT_RETAIN);
     
   }
