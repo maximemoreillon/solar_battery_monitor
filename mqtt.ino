@@ -41,3 +41,26 @@ void MQTT_message_callback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println();
 }
+
+void periodic_MQTT_publish(){
+  static long last_publish_time;
+
+  long now = millis();
+  
+  if(now - last_publish_time > MQTT_PUBLISH_PERIOD){
+    last_publish_time = now;
+    StaticJsonDocument<200> outbound_JSON_message;
+  
+    // Add the DHT reading to the JSON message
+    outbound_JSON_message["battery_voltage"] = (String) battery_voltage;
+    
+    // Serialize JSON into a char array
+    char JSONmessageBuffer[100];
+    serializeJson(outbound_JSON_message, JSONmessageBuffer, sizeof(JSONmessageBuffer));
+
+    // Send the char array
+    Serial.println(F("[MQTT] publish of measurement"));
+    MQTT_client.publish(MQTT_STATUS_TOPIC, JSONmessageBuffer, MQTT_RETAIN);
+    
+  }
+}

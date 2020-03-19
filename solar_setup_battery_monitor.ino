@@ -27,7 +27,7 @@
 #define MQTT_BROKER_ADDRESS IPAddress(192, 168, 1, 2)
 #define MQTT_PORT 1883
 #define MQTT_STATUS_TOPIC "solar/status"
-#define MQTT_LAST_WILL "{'state':'disconnected'}"
+#define MQTT_LAST_WILL "{\"state\":\"disconnected\"}"
 #define MQTT_QOS 1
 #define MQTT_RETAIN true
 
@@ -44,8 +44,9 @@
 
 // Timing settings
 #define ADC_READ_PERIOD 100
+#define WS_EMIT_PERIOD 1000
 #define MQTT_PUBLISH_PERIOD 60000
-#define FILTER_CONSTANT 0.1
+#define FILTER_CONSTANT 0.05
 
 class LowPassFilter {
   
@@ -99,4 +100,6 @@ void loop() {
   web_server.handleClient();
   ws_server.loop();
   adc_read();
+  periodic_ws_emit();
+  periodic_MQTT_publish();
 }
