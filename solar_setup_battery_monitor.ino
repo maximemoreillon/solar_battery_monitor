@@ -21,7 +21,8 @@
 #define HOSTNAME "solarMonitor"
 
 // Pin mapping
-#define ADC_PIN 35
+#define VOLTAGE_ADC_PIN 35
+#define CURRENT_ADC_PIN 34
 
 // MQTT
 #define MQTT_BROKER_ADDRESS IPAddress(192, 168, 1, 2)
@@ -45,7 +46,7 @@
 // Timing settings
 #define ADC_READ_PERIOD 100
 #define WS_EMIT_PERIOD 1000
-#define MQTT_PUBLISH_PERIOD 60000
+#define MQTT_PUBLISH_PERIOD 200000
 #define FILTER_CONSTANT 0.05
 
 class LowPassFilter {
@@ -66,7 +67,8 @@ class LowPassFilter {
     }
 };
 
-LowPassFilter lpf(FILTER_CONSTANT);
+LowPassFilter voltage_lpf(FILTER_CONSTANT);
+LowPassFilter current_lpf(FILTER_CONSTANT);
 
 
 WiFiClient wifi_client;
@@ -75,6 +77,7 @@ WebServer web_server(WWW_PORT);
 WebSocketsServer ws_server = WebSocketsServer(WS_PORT);
 
 float battery_voltage;
+float current;
 
 void setup() {
   // Mandatory initial delay

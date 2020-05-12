@@ -53,9 +53,10 @@ void periodic_MQTT_publish(){
   
     // Add the DHT reading to the JSON message
     outbound_JSON_message["battery_voltage"] = (String) battery_voltage;
+    outbound_JSON_message["current"] = (String) current;
     
     // Serialize JSON into a char array
-    char JSONmessageBuffer[100];
+    char JSONmessageBuffer[200];
     serializeJson(outbound_JSON_message, JSONmessageBuffer, sizeof(JSONmessageBuffer));
 
     // Send the char array
