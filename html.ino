@@ -30,7 +30,7 @@ const String nav = "<div class='nav'>"
 const String footer= "<div class='footer'>"
   "<img src='https://cdn.maximemoreillon.com/logo/logo.png'>"
   "  <div>"
-  "    <div>Battery monitor</div>"
+  "    <div>Battery monitor v" + String(VERSION) + "</div>"
   "    <div>Maxime Moreillon</div>"
   "  </div>"
   "</div>";

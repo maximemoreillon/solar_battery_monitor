@@ -19,6 +19,7 @@
 
 // Parameters
 #define HOSTNAME "solarMonitor"
+#define VERSION "1.0.1"
 
 // Pin mapping
 #define VOLTAGE_ADC_PIN 35

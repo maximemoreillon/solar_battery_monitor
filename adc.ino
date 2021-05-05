@@ -14,7 +14,11 @@ void adc_read(){
     float current_adc_reading = analogRead(CURRENT_ADC_PIN);
     current_lpf.feed(current_adc_reading); 
     float filtered_current_adc_voltage =  VCC * current_lpf.output / ADC_MAX;
-    current = ((filtered_current_adc_voltage - 1.5) / (3.5 - 1.5)) * 10 - 5;
+
+    // Conversion from voltage to current
+    // Apparently not very accurate at the moment
+    const float current_bias = 0.40;
+    current = ((filtered_current_adc_voltage - 1.50) / (3.50 - 1.50)) * 10.00 - 5.00 + current_bias;
         
   }
 
