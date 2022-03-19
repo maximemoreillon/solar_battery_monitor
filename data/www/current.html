@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Power monitor</title>
+    <link rel="stylesheet" href="current.css">
+  </head>
+  <body>
+
+    <div id="current_container">
+      <div id="current_indicator"></div>
+    </div>
+
+    <script>
+
+      const ws_url = `ws://${window.location.hostname}:8087`
+      const websock = new WebSocket(ws_url)
+
+      console.log(`WS connecting to ${ws_url}`)
+
+      const current_indicator = document.getElementById("current_indicator")
+      const max_current = 1.0
+
+      websock.onopen = (evt) => { console.log("websocket connected") }
+      websock.onclose = (evt) => { console.log("websocket closed") }
+      websock.onerror = (evt) => { console.error(evt) }
+
+      websock.onmessage = ( {data}) => {
+
+        const {
+          current,
+        } = JSON.parse(data)
+
+        // Warning: Current is inverted
+        current_indicator.innerHTML = `${-current}A`
+        current_indicator.style.height = `${50* current/max_current}%%`
+        if(current > 0) current_indicator.style['background-color'] = '#e65050'
+        else current_indicator.style['background-color'] = '#12ba77'
+      }
+
+    </script>
+  </body>
+</html>
