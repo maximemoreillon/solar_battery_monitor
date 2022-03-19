@@ -20,9 +20,7 @@ body {
 
 #current_indicator {
   position: absolute;
-  top: 50%%;
-  left: 0;
-  right: 0;
+  width: 100%%;
   display: flex;
   justify-content: center;
   align-items: center;
