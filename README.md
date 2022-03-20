@@ -1,2 +1,5 @@
 # Solar setup battery monitor
-Firmware developed to measure battery voltage and current in a solar setup
+Measuring the voltage as well as current in and out of the battery in a solar power setup.
+
+Project page: https://articles.maximemoreillon.com/articles/186
+

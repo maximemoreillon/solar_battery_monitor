@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #444444;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+#current_container {
+  position: relative;
+  height: 80vh;
+  width: 50vw;
+  max-width: 400px;
+  border: 3px solid DimGrey;
+  padding: 2px;
+}
+
+#current_indicator {
+  position: absolute;
+  width: 100%%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow:hidden;
+  transition: height 1s;
+  background-color: #12ba77;
+}

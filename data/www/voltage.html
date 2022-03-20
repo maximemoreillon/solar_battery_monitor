@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Solar setup battery monitor</title>
+    <link rel="stylesheet" href="voltage.css">
+  </head>
+  <body>
+    <h1>Battery voltage</h1>
+    <div id="voltage_container">
+      <div id="voltage_indicator"></div>
+    </div>
+
+    <script>
+
+      const ws_url = `ws://${window.location.hostname}:8087`
+      const websock = new WebSocket(ws_url)
+
+      console.log(`WS connecting to ${ws_url}`)
+
+      const voltage_indicator = document.getElementById("voltage_indicator")
+      const max_voltage = 13.00
+      const min_voltage = 11.00
+
+      websock.onopen = (evt) => { console.log("websocket connected") }
+      websock.onclose = (evt) => { console.log("websocket closed") }
+      websock.onerror = (evt) => { console.error(evt) }
+
+      websock.onmessage = ( {data}) => {
+
+        const {
+          battery_voltage,
+        } = JSON.parse(data)
+
+        voltage_indicator.innerHTML = `${battery_voltage}V`
+        voltage_indicator.style.height = `${100* (battery_voltage - min_voltage)/(max_voltage - min_voltage)}%%`
+
+      }
+
+    </script>
+  </body>
+</html>

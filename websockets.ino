@@ -1,4 +1,4 @@
-void websocket_setup(){
+void ws_setup(){
   ws_server.begin();
 }
 
